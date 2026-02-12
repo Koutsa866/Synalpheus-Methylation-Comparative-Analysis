@@ -9,7 +9,7 @@ from pathlib import Path
 BASE_DIR = Path('/Users/philip_koutsaftis/Library/CloudStorage/GoogleDrive-philipkoutsaftis@gmail.com/My Drive/2025_SnrProj_Dir')
 INPUT_BASE = BASE_DIR / 'Data/contigs'
 OUTPUT_BASE = BASE_DIR / 'results/augustus_output'
-BATCH_RANGE = range(11, 17)  # batches 11-16
+BATCH_RANGE = range(11, 17)  # batches 11-16 -> 
 SPECIES = 'fly'
 
 
@@ -37,7 +37,7 @@ def process_batch(batch_num, input_base, output_base, species='fly'):
     fasta_files = list(input_batch.glob('contig_*/contig_*.fasta'))
     
     if not fasta_files:
-        print(f'⚠️  No FASTA files in batch {batch_num}')
+        print(f'  No FASTA files in batch {batch_num}')
         return 0
     
     print(f'📦 Batch {batch_num}: {len(fasta_files)} files')
@@ -52,18 +52,18 @@ def process_batch(batch_num, input_base, output_base, species='fly'):
         try:
             run_augustus(fasta, output, species)
             processed += 1
-            print(f'✅ {fasta.stem}')
+            print(f' {fasta.stem}')
         except subprocess.CalledProcessError as e:
-            print(f'❌ {fasta.stem}: {e}')
+            print(f' {fasta.stem}: {e}')
     
     return processed
 
 
 if __name__ == '__main__':
-    print('🚀 Starting AUGUSTUS batch processing (batches 11–16)...')
+    print(' Starting AUGUSTUS batch processing (batches 11–16)...')
     total_processed = 0
     
     for batch in BATCH_RANGE:
         total_processed += process_batch(batch, INPUT_BASE, OUTPUT_BASE, SPECIES)
     
-    print(f'🎉 Completed! Processed {total_processed} files')
+    print(f' Completed! Processed {total_processed} files')
