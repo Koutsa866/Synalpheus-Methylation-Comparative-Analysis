@@ -12,7 +12,7 @@
 
 ![Cross-Species Methylation-DEG Analysis](Results/05_ortholog_analysis/figure4_combined_summary.png)
 
-**Key Result:** Promoter methylation in *S. chacei* predicts differential gene expression in *S. elizabethae* (p=0.028, OR=1.34) but not in *S. brooksi* (p=0.51), revealing lineage-specific epigenetic conservation.
+**Key Result:** Promoter methylation in *S. chacei* primarily targets transposable elements (77% of methylated genes, p=3.9×10⁻¹³). Cross-species analysis reveals this epigenetic signature predicts differential gene expression in *S. elizabethae* (p=0.028, OR=1.34) but not in *S. brooksi* (p=0.51), demonstrating lineage-specific conservation of methylation-mediated genome defense.
 
 ---
 
