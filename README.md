@@ -64,21 +64,43 @@ This represents a **conserved epigenetic defense mechanism** across eusocial spe
 
 ```mermaid
 graph LR
-    A[ONT Sequencing] --> B[AUGUSTUS Gene Prediction]
-    B --> C[Methylation Calling]
-    C --> D[Promoter Analysis]
-    D --> E[Functional Annotation]
-    E --> F[GO Enrichment]
-    F --> G[Statistical Analysis]
+    A[ONT Sequencing] --> B[Dorado Basecalling]
+    B --> C[Genome Assembly]
+    C --> D[AUGUSTUS Gene Prediction]
+    D --> E[Methylation Calling]
+    E --> F[Promoter Analysis]
+    F --> G[Functional Annotation]
+    G --> H[GO Enrichment]
+    H --> I[Statistical Analysis]
 ```
 
-### Technical Specifications
-- **Sequencing:** Oxford Nanopore MinION
-- **Assembly:** Draft genome assembly
+### Data Processing Pipeline
+
+**1. Basecalling & Methylation Detection**
+- **Platform:** Oxford Nanopore MinION sequencing
+- **Basecaller:** Dorado with modified base calling enabled
+- **Output:** Native 5-methylcytosine (5mC) detection at single-nucleotide resolution
+- **Format:** BEDmethyl files with per-site methylation frequencies
+
+**2. Genome Assembly & Gene Prediction**
+- **Assembly:** Draft genome assembly from long-read data
 - **Gene Prediction:** AUGUSTUS (Drosophila training set)
-- **Methylation:** ≥30× coverage, ≥50% methylation threshold
-- **Annotation:** DIAMOND + SwissProt database
-- **Statistics:** Fisher's exact test, FDR correction
+- **Output:** 6,848 predicted gene models
+
+**3. Methylation Analysis**
+- **Threshold:** ≥30× coverage, ≥50% methylation frequency
+- **Promoter Definition:** 2kb upstream of transcription start site
+- **High-Confidence Sites:** ~2.6 million methylated CpG sites
+
+**4. Functional Annotation**
+- **Method:** DIAMOND blastx against SwissProt database
+- **E-value cutoff:** 1×10⁻¹⁰
+- **Success Rate:** 80% of genes annotated (5,504/6,848)
+
+**5. Statistical Analysis**
+- **GO Enrichment:** Fisher's exact test with FDR correction
+- **Cross-Species Analysis:** Ortholog mapping with "Successful Mappers" filtering
+- **Significance:** p < 0.05
 
 ---
 
