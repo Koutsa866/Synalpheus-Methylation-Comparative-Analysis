@@ -37,6 +37,11 @@ def get_stats(ctable):
 fig = plt.figure(figsize=(15, 11))
 gs = fig.add_gridspec(2, 2, hspace=0.35, wspace=0.25)
 
+# Calculate Global Methylation Rates
+brooksi_meth_rate = (brooksi.loc['Methylated'].sum() / brooksi.sum().sum()) * 100
+eliz_meth_rate = (elizabethae.loc['Methylated'].sum() / elizabethae.sum().sum()) * 100
+meth_rates = [brooksi_meth_rate, eliz_meth_rate]
+
 # --- PANEL A: ENRICHMENT BARS ---
 ax1 = fig.add_subplot(gs[0, :])
 species_data = [('S. brooksi', brooksi), ('S. elizabethae', elizabethae)]
@@ -53,6 +58,10 @@ for idx, (name, ct) in enumerate(species_data):
     # Species labels (Italicized)
     ax1.text(off + 0.5, -12, rf"$\mathit{{{name}}}$", ha='center', fontweight='bold', fontsize=12)
     
+    # Global Methylation Rate Label
+    ax1.text(off + 0.5, -22, f"({meth_rates[idx]:.1f}% Methylated)", 
+             ha='center', fontsize=10, color='#555555', style='italic')
+    
     # Stat Boxes
     p = summary.iloc[idx]['p_value']
     color = SIG_COLOR if p < 0.05 else NS_COLOR
@@ -60,7 +69,7 @@ for idx, (name, ct) in enumerate(species_data):
              ha='center', va='center', fontweight='bold', color=color,
              bbox=dict(boxstyle='round,pad=0.5', fc='white', ec=color, lw=2))
 
-ax1.set_ylim(0, 130)
+ax1.set_ylim(-25, 130)
 ax1.set_xticks([0, 1, 3, 4])
 ax1.set_xticklabels(['Methylated', 'Unmethylated', 'Methylated', 'Unmethylated'], fontweight='bold')
 ax1.set_ylabel('Percentage of Genes (%)', fontweight='bold')
@@ -96,22 +105,22 @@ ax3.axis('off')
 table_data = []
 for i, row in summary.iterrows():
     res = "Significant" if row['p_value'] < 0.05 else "Not Sig."
-    table_data.append([f"S. {row['species']}", row['n_genes_analyzed'], f"{row['odds_ratio']:.2f}", f"{row['p_value']:.4f}", res])
+    table_data.append([f"S. {row['species']}", row['n_genes_analyzed'], f"{meth_rates[i]:.1f}%", f"{row['odds_ratio']:.2f}", f"{row['p_value']:.4f}", res])
 
-table = ax3.table(cellText=table_data, colLabels=['Species', 'N Genes', 'OR', 'P-value', 'Result'], 
+table = ax3.table(cellText=table_data, colLabels=['Species', 'N Genes', '% Meth', 'OR', 'P-value', 'Result'], 
                   loc='center', cellLoc='center', bbox=[0, 0, 1, 0.7])
 table.auto_set_font_size(False)
 table.set_fontsize(10)
 
 # Style header
-for i in range(5):
+for i in range(6):
     table[(0, i)].set_facecolor('#34495e')
     table[(0, i)].set_text_props(weight='bold', color='white')
 
 # Style Table
 for i in range(1, 3):
     table[(i, 0)].get_text().set_fontstyle('italic')
-    res_cell = table[(i, 4)]
+    res_cell = table[(i, 5)]
     res_cell.set_facecolor('#d5f4e6' if "Significant" in res_cell.get_text().get_text() else '#f2f4f4')
 
 ax3.set_title('C. Statistical Summary Table', loc='left', fontsize=14, fontweight='bold')
