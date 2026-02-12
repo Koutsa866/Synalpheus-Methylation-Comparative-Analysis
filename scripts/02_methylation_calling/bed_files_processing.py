@@ -55,7 +55,7 @@ def merge_bed_files():
             with open(bed) as f:
                 out.writelines(f)
     
-    print(f"✅ Merged {len(bed_files)} BED files")
+    print(f" Merged {len(bed_files)} BED files")
 
 
 def create_strand_aware_bed():
@@ -68,7 +68,7 @@ def create_strand_aware_bed():
         for gff in gff_files:
             gff_to_strand_bed(gff, out)
     
-    print(f"✅ Created strand-aware BED from {len(gff_files)} files")
+    print(f" Created strand-aware BED from {len(gff_files)} files")
 
 
 def extract_tss():
@@ -84,7 +84,7 @@ def extract_tss():
     df[['chrom', 'tss_start', 'tss_end', 'gene_id', 'score', 'strand']].to_csv(
         output, sep='\t', header=False, index=False)
     
-    print(f"✅ Extracted {len(df)} TSS positions")
+    print(f" Extracted {len(df)} TSS positions")
 
 
 def extract_promoters():
@@ -110,7 +110,7 @@ def extract_promoters():
     df[['chrom', 'prom_start', 'prom_end', 'gene_id', 'score', 'strand']].to_csv(
         output, sep='\t', header=False, index=False)
     
-    print(f"✅ Extracted {len(df)} promoter regions")
+    print(f" Extracted {len(df)} promoter regions")
 
 
 if __name__ == '__main__':
