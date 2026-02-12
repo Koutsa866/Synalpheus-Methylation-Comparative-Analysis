@@ -56,7 +56,9 @@ This represents a **conserved epigenetic defense mechanism** across eusocial spe
 - **`scripts/05_definitive_orthology/`** - Cross-species ortholog analysis (Dr. Chak's requirements)
 - **`scripts/06_visualization/`** - Publication-quality figures
 - **`Results/05_ortholog_analysis/`** - Statistical results and figures
-- **`docs/`** - Methods documentation and PAG33 poster
+
+### Data Availability
+**Note:** Genomic FASTA files, DIAMOND databases, and raw sequencing data are excluded from this repository due to size constraints (>700MB). These files are available upon request or can be regenerated using the provided pipeline scripts.
 
 ---
 
