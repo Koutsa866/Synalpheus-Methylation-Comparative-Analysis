@@ -17,9 +17,6 @@ Author: Philip Koutsaftis
 Date: 2025
 """
 
-Creates publication-quality figures for thesis
-"""
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -185,12 +182,22 @@ for idx, (species, ctable) in enumerate([('S. brooksi', brooksi), ('S. elizabeth
     
     # Add species labels
     ax1.text(x_offset + 0.5, -8, f'$\mathit{{{species}}}$', ha='center', fontsize=12, fontweight='bold')
+    
+    # Add statistics annotation
+    or_val = ors[idx]
+    p_val = p_values[idx]
+    sig_marker = "*" if p_val < 0.05 else "ns"
+    stats_text = f'OR={or_val:.2f}, p={p_val:.3f} {sig_marker}'
+    text_color = '#27ae60' if p_val < 0.05 else '#95a5a6'
+    ax1.text(x_offset + 0.5, 105, stats_text, ha='center', fontsize=10, 
+             fontweight='bold', color=text_color, bbox=dict(boxstyle='round', 
+             facecolor='white', edgecolor=text_color, linewidth=1.5))
 
 ax1.set_xticks([0, 1, 3, 4])
 ax1.set_xticklabels(['Methylated', 'Unmethylated', 'Methylated', 'Unmethylated'])
 ax1.set_ylabel('Percentage (%)', fontsize=12)
 ax1.set_title('A. DEG Enrichment by Methylation Status', fontsize=14, fontweight='bold', loc='left')
-ax1.set_ylim(0, 100)
+ax1.set_ylim(0, 115)  # Increased to accommodate statistics text
 ax1.legend(loc='upper right')
 
 # Panel B: Forest plot
