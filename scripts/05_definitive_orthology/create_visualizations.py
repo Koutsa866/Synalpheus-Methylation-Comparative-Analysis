@@ -23,10 +23,15 @@ import numpy as np
 from scipy.stats import chi2_contingency
 import seaborn as sns
 
-# Set publication style
+# --- STYLE CONFIGURATION ---
 sns.set_style("whitegrid")
-plt.rcParams['font.size'] = 12
+plt.rcParams['font.size'] = 11
 plt.rcParams['figure.dpi'] = 300
+# High-bandwidth color palette
+DEG_COLOR = '#e74c3c'      # Salmon/Red
+NON_DEG_COLOR = '#3498db'  # Blue
+SIG_COLOR = '#27ae60'      # Green
+NS_COLOR = '#95a5a6'       # Gray
 
 # Load contingency tables
 brooksi = pd.read_csv('Results/05_ortholog_analysis/brooksi_contingency_table.csv', index_col=0)
@@ -34,6 +39,21 @@ elizabethae = pd.read_csv('Results/05_ortholog_analysis/elizabethae_contingency_
 
 # Load summary stats
 summary = pd.read_csv('Results/05_ortholog_analysis/summary_statistics.csv')
+
+def calculate_or_ci(ctable):
+    """Calculate Odds Ratio and 95% CI"""
+    a, b = ctable.iloc[0, 0], ctable.iloc[0, 1]
+    c, d = ctable.iloc[1, 0], ctable.iloc[1, 1]
+    or_val = (a * d) / (b * c) if (b * c) != 0 else float('inf')
+    se_log_or = np.sqrt(1/a + 1/b + 1/c + 1/d)
+    log_or = np.log(or_val)
+    return or_val, np.exp(log_or - 1.96 * se_log_or), np.exp(log_or + 1.96 * se_log_or)
+
+# Prep stats
+ors, lows, highs = [], [], []
+for ct in [brooksi, elizabethae]:
+    o, l, h = calculate_or_ci(ct)
+    ors.append(o); lows.append(l); highs.append(h)
 
 # ============================================================
 # FIGURE 1: Normalized Stacked Bar Chart (Enrichment Plot)
