@@ -1,0 +1,30 @@
+name: synalpheus_methylation
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  # Core Python
+  - python=3.8
+  
+  # Bioinformatics Tools
+  - biopython>=1.79
+  - diamond>=2.0
+  
+  # Data Analysis
+  - pandas>=1.3
+  - numpy>=1.21
+  - scipy>=1.7
+  
+  # Visualization
+  - matplotlib>=3.4
+  - seaborn>=0.11
+  - statsmodels>=0.13
+  
+  # Utilities
+  - jupyter
+  - ipython
+
+# Installation instructions:
+# conda env create -f environment.yml
+# conda activate synalpheus_methylation

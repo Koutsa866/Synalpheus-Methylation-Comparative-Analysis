@@ -1,0 +1,14 @@
+# Genomic Binaries
+*.fasta
+*.faa
+*.dmnd
+*.fai
+*.zip
+*.tabular
+*.bed
+
+# Directories and Temp Files
+Data/contigs/
+Results/**/temp/
+archive/
+.DS_Store
