@@ -48,6 +48,27 @@ This represents a **conserved epigenetic defense mechanism** across eusocial spe
 
 ## Repository Contents
 
+### Repository Structure
+
+```
+Synalpheus-Methylation-Comparative-Analysis/
+├── scripts/                    # 6-phase analysis pipeline
+│   ├── 01_gene_prediction/     # AUGUSTUS calling
+│   ├── 02_methylation_calling/ # BED processing
+│   ├── 03_functional_annotation/# DIAMOND + GO enrichment
+│   ├── 04_exploratory_deg_analysis/# Initial DEG-methylation tests
+│   ├── 05_definitive_orthology/# Cross-species ortholog analysis
+│   ├── 06_visualization/       # Publication-quality figures
+│   └── utilities/              # Helper scripts
+├── Results/
+│   ├── 05_ortholog_analysis/   # Statistical outputs & figures
+│   └── 06_figures/             # Publication visualizations
+├── environment.yml             # Conda environment
+├── requirements.txt            # Python dependencies
+├── README.md
+└── LICENSE
+```
+
 ### Analysis Pipeline (Numbered 01-06)
 - **`scripts/01_gene_prediction/`** - AUGUSTUS gene calling
 - **`scripts/02_methylation_calling/`** - CpG methylation detection  
