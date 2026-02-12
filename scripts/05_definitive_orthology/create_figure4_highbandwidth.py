@@ -11,12 +11,12 @@ from scipy.stats import chi2_contingency
 import seaborn as sns
 
 # --- STYLE & CONFIGURATION ---
-sns.set_style("whitegrid")
+sns.set_style("white")  # Cleaner background to make red pop
 plt.rcParams['font.size'] = 11
 plt.rcParams['figure.dpi'] = 300
 SIG_COLOR = '#27ae60'  # Professional Green
 NS_COLOR = '#95a5a6'   # Neutral Gray
-DEG_COLOR = '#e74c3c'  # Social DEG
+DEG_COLOR = '#e74c3c'  # Social DEG (High Contrast Red)
 BG_COLOR = '#3498db'   # Background
 
 # Load Data
@@ -51,30 +51,48 @@ for idx, (name, ct) in enumerate(species_data):
     off = idx * 3
     x_pos = np.array([0, 1]) + off
     
-    # Bars
-    ax1.bar(x_pos, props['DEG'], color=DEG_COLOR, alpha=0.8, edgecolor='black', label='Social DEG' if idx==0 else "")
-    ax1.bar(x_pos, props['Non-DEG'], bottom=props['DEG'], color=BG_COLOR, alpha=0.8, edgecolor='black', label='Non-DEG Background' if idx==0 else "")
+    # Plot Bars
+    bars_deg = ax1.bar(x_pos, props['DEG'], color=DEG_COLOR, alpha=0.9, edgecolor='black', linewidth=1.2, label='Social DEG' if idx==0 else "")
+    bars_bg = ax1.bar(x_pos, props['Non-DEG'], bottom=props['DEG'], color=BG_COLOR, alpha=0.6, edgecolor='black', linewidth=1, label='Non-DEG Background' if idx==0 else "")
     
-    # Species labels (Italicized)
-    ax1.text(off + 0.5, -12, rf"$\mathit{{{name}}}$", ha='center', fontweight='bold', fontsize=12)
+    # ADD PERCENTAGE LABELS (High-Contrast Upgrade)
+    for i, bar in enumerate(bars_deg):
+        val = props['DEG'].iloc[i]
+        # Bold label for DEG portion
+        ax1.text(bar.get_x() + bar.get_width()/2, val + 1, f'{val:.1f}%', 
+                 ha='center', va='bottom', fontweight='bold', fontsize=12, color=DEG_COLOR)
+        
+        # Subdued label for Non-DEG portion
+        bg_val = props['Non-DEG'].iloc[i]
+        ax1.text(bar.get_x() + bar.get_width()/2, 98, f'{bg_val:.1f}%', 
+                 ha='center', va='top', fontsize=9, color='white', alpha=0.9)
     
-    # Global Methylation Rate Label
-    ax1.text(off + 0.5, -22, f"({meth_rates[idx]:.1f}% Methylated)", 
-             ha='center', fontsize=10, color='#555555', style='italic')
+    # Species and Global Methylation Labels
+    ax1.text(off + 0.5, -12, rf"$\mathit{{{name}}}$", ha='center', fontweight='bold', fontsize=13)
+    ax1.text(off + 0.5, -18, f"({meth_rates[idx]:.1f}% Methylated)", ha='center', fontsize=10, color='gray', style='italic')
     
     # Stat Boxes
     p = summary.iloc[idx]['p_value']
     color = SIG_COLOR if p < 0.05 else NS_COLOR
-    ax1.text(off + 0.5, 110, f"OR={summary.iloc[idx]['odds_ratio']:.2f}\np={p:.4f}", 
+    ax1.text(off + 0.5, 112, f"OR={summary.iloc[idx]['odds_ratio']:.2f}\np={p:.4f}", 
              ha='center', va='center', fontweight='bold', color=color,
-             bbox=dict(boxstyle='round,pad=0.5', fc='white', ec=color, lw=2))
+             bbox=dict(boxstyle='round,pad=0.4', fc='white', ec=color, lw=2))
 
-ax1.set_ylim(-25, 130)
+ax1.set_ylim(-25, 135)
+ax1.set_yticks([0, 20, 40, 60, 80, 100])
 ax1.set_xticks([0, 1, 3, 4])
 ax1.set_xticklabels(['Methylated', 'Unmethylated', 'Methylated', 'Unmethylated'], fontweight='bold')
 ax1.set_ylabel('Percentage of Genes (%)', fontweight='bold')
 ax1.set_title('A. Differential Gene Recruitment by Methylation Status', loc='left', fontsize=14, fontweight='bold')
-ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=2, frameon=True)
+
+# Directional Arrows
+ax1.annotate('', xy=(0.5, -22), xytext=(0, -22), arrowprops=dict(arrowstyle='<-', color='gray', lw=1.5))
+ax1.text(0.25, -24, 'Depleted', ha='center', fontsize=9, color='gray')
+ax1.annotate('', xy=(3.5, -22), xytext=(3, -22), arrowprops=dict(arrowstyle='->', color=SIG_COLOR, lw=1.5))
+ax1.text(3.25, -24, 'Enriched', ha='center', fontsize=9, color=SIG_COLOR, fontweight='bold')
+
+ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.18), ncol=2, frameon=True)
+sns.despine(ax=ax1, offset=10)
 
 # --- PANEL B: FOREST PLOT (WITH DIRECTIONAL ANCHORS) ---
 ax2 = fig.add_subplot(gs[1, 0])
