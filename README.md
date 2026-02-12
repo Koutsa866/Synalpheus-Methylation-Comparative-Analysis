@@ -60,6 +60,8 @@ This represents a **conserved epigenetic defense mechanism** across eusocial spe
 ### Data Availability
 **Note:** Genomic FASTA files, DIAMOND databases, and raw sequencing data are excluded from this repository due to size constraints (>700MB). These files are available upon request or can be regenerated using the provided pipeline scripts.
 
+**Raw Data Access:** The *S. chacei* genome assembly and Oxford Nanopore methylation calls used in this analysis are proprietary and remain the property of the Chak Lab at Denison University. These datasets are currently unpublished. Researchers interested in accessing the raw data for replication purposes should contact Dr. Solomon Chak (chaks@denison.edu).
+
 ---
 
 ## Methods Pipeline
