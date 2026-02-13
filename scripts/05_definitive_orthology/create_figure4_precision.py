@@ -69,8 +69,8 @@ def create_publication_figure():
                      ha='center', va='bottom', fontsize=9, 
                      fontweight='normal', color='black')
             
-            # Non-DEG label at the top 100% mark (Subtle)
-            ax1.text(x_coord, 101.5, f'{(100-h):.1f}%', ha='center', fontsize=8, color='#7f8c8d')
+            # Non-DEG label at the top 100% mark (Black)
+            ax1.text(x_coord, 101.5, f'{(100-h):.1f}%', ha='center', fontsize=8, color='black')
 
         # 4. Species and Global Methylation Status Labels
         ax1.text(off + 0.5, -15, rf"$\mathit{{{name}}}$", ha='center', fontsize=14, fontweight='bold')
