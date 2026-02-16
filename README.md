@@ -58,7 +58,7 @@ This represents a **conserved epigenetic defense mechanism** across eusocial spe
 - Demonstrates lineage-specific conservation of epigenetic genome defense
 
 ### Technical Validation
-- Ortholog recovery: 5,515 genes (brooksi), 5,012 genes (elizabethae)
+- Ortholog recovery: 5,515 genes (*brooksi*), 5,012 genes (*elizabethae*)
 - Annotation success: 80% (5,504/6,848 genes)
 
 ---
