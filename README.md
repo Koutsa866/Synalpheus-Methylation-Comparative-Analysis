@@ -46,6 +46,23 @@ This represents a **conserved epigenetic defense mechanism** across eusocial spe
 
 ---
 
+## Key Results
+
+### Genome Defense Mechanism
+- **77% of methylated genes are transposable elements** (24/31 annotated)
+- GO enrichment: DNA binding (p=3.9×10⁻¹³), RNA-directed DNA polymerase (p=6.3×10⁻¹¹)
+
+### Cross-Species Conservation
+- **S. elizabethae:** Methylation predicts differential expression (OR=1.34, p=0.028)
+- **S. brooksi:** No significant correlation (p=0.51)
+- Demonstrates lineage-specific conservation of epigenetic genome defense
+
+### Technical Validation
+- Ortholog recovery: 5,515 genes (brooksi), 5,012 genes (elizabethae)
+- Annotation success: 80% (5,504/6,848 genes)
+
+---
+
 ## Repository Contents
 
 ### Repository Structure
