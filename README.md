@@ -104,7 +104,8 @@ Synalpheus-Methylation-Comparative-Analysis/
 
 ## Methods Pipeline
 
-```mermaid
+```
+mermaid
 graph LR
     A[ONT Sequencing] --> B[Dorado Basecalling]
     B --> C[Genome Assembly]
