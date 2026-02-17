@@ -104,17 +104,26 @@ Synalpheus-Methylation-Comparative-Analysis/
 
 ## Methods Pipeline
 
-```mermaid
-graph LR
-    A[ONT Sequencing] --> B[Dorado Basecalling]
-    B --> C[Genome Assembly]
-    C --> D[AUGUSTUS Gene Prediction]
-    D --> E[Methylation Calling]
-    E --> F[Promoter Analysis]
-    F --> G[Functional Annotation]
-    G --> H[GO Enrichment]
-    H --> I[Statistical Analysis]
-```
+graph TD
+    %% Upstream Data Acquisition
+    subgraph Data_Acquisition [Data Acquisition]
+        A[ONT Sequencing] --> B[Dorado Basecalling]
+        B --> C[Genome Assembly]
+    end
+
+    %% The Analytical Pipeline (01-06)
+    subgraph Analysis_Pipeline [Analytical Pipeline 01-06]
+        C --> D[01: AUGUSTUS Gene Prediction]
+        D --> E[02: Methylation Calling]
+        E --> F[03: Functional Annotation]
+        F --> G[04: Exploratory DGE Analysis]
+        G --> H[05: Definitive Orthology]
+        H --> I[06: Visualization & Statistics]
+    end
+
+    %% Style definitions
+    style Data_Acquisition fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Analysis_Pipeline fill:#e1f5fe,stroke:#01579b,stroke-width:2px
 
 ### Data Processing Pipeline
 
