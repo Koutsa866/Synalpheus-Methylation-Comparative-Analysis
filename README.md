@@ -101,9 +101,9 @@ Synalpheus-Methylation-Comparative-Analysis/
 **Raw Data Access:** The *S. chacei* genome assembly and Oxford Nanopore methylation calls used in this analysis are proprietary and remain the property of the Chak Lab at Denison University. These datasets are currently unpublished.
 
 ---
-
 ## Methods Pipeline
 
+```mermaid
 graph TD
     %% Upstream Data Acquisition
     subgraph Data_Acquisition [Data Acquisition]
@@ -124,6 +124,7 @@ graph TD
     %% Style definitions
     style Data_Acquisition fill:#f9f9f9,stroke:#333,stroke-width:2px
     style Analysis_Pipeline fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+---
 
 ### Data Processing Pipeline
 
