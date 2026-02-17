@@ -105,7 +105,6 @@ Synalpheus-Methylation-Comparative-Analysis/
 ## Methods Pipeline
 
 ```mermaid
-
 graph TD
     %% Upstream Data Acquisition
     subgraph Data_Acquisition [Data Acquisition]
