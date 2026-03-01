@@ -196,4 +196,3 @@ if __name__ == "__main__":
         print(f"  ✓ Results/05b_directional_analysis/upregulated/{r['species']}_upregulated_contingency.csv")
     
     print("\n✓ Up-regulated analysis complete!")
-
